@@ -12,21 +12,9 @@ app.use(morgan("tiny"));
 require("dotenv/config");
 
 const api = process.env.API_URL;
+const productsRouter = require("./routers/products");
 
-app.get(`${api}/products`, (req, res) => {
-  const product = {
-    id: 1,
-    name: "hair dresser",
-    image: "some url",
-  };
-  res.send(product);
-});
-
-app.post(`${api}/products`, (req, res) => {
-  const newProduct = req.body;
-  console.log(newProduct);
-  res.send(newProduct);
-});
+app.use(`${api}/products`, productsRouter);
 
 mongoose
   .connect(process.env.CONNECTION_STRING, {
